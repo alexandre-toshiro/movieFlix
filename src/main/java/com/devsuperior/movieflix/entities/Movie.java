@@ -1,6 +1,8 @@
 package com.devsuperior.movieflix.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,12 +25,15 @@ public class Movie implements Serializable {
     private Long id;
 
     private String title;
+
     private String subTitle;
     private Integer year;
     private String imgUrl;
+
+    @Column(length = 1000)
     private String synopsis;
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne

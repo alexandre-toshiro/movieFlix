@@ -1,5 +1,6 @@
 package com.devsuperior.movieflix.services.exceptions;
 
+import com.devsuperior.movieflix.dto.UserDTO;
 import com.devsuperior.movieflix.entities.User;
 import com.devsuperior.movieflix.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,10 +27,18 @@ public class AuthService {
         }
     }
 
-    public void validateSelfOrAdmin(Long userId) {
+    public void validateMemberOrVisitor(Long userId) {
         User user = authenticated();
-        if (!user.getId().equals(userId) && !user.hasHole("ROLE_ADMIN")) {
+        if(user.hasHole("ROLE_VISITOR")) {
             throw new ForbiddenException("Access denied");
         }
+
+        if (!user.getId().equals(userId) && !user.hasHole("ROLE_MEMBER")) {
+            throw new ForbiddenException("Access denied");
+        }
+    }
+
+    public User findLoggedUser() {
+        return authenticated();
     }
 }

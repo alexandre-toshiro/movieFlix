@@ -55,6 +55,7 @@ public class User implements Serializable, UserDetails {
         this.password = password;
     }
 
+
     public Long getId() {
         return id;
     }

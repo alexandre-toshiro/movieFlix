@@ -53,8 +53,6 @@ public class ControllerExceptionHandler {
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
 
-        // Validação para devolver uma lista de erros de validação(vários campos
-        // inválidos)
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         fieldErrors.forEach(f -> {
             err.addError(f.getField(), f.getDefaultMessage());
